@@ -7,17 +7,17 @@ const Home = () => {
   const [isVisible, setIsVisible] = useState({});
 
   const backgroundImages = [
-    'https://images.pexels.com/photos/1659438/pexels-photo-1659438.jpeg',
+    'https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg',
     'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg',
-    'https://images.pexels.com/photos/162539/architecture-building-bridges-landmark-162539.jpeg',
-    'https://images.pexels.com/photos/1089459/pexels-photo-1089459.jpeg',
+    'https://images.pexels.com/photos/236748/pexels-photo-236748.jpeg',
+    'https://images.pexels.com/photos/256297/pexels-photo-256297.jpeg',
     'https://images.pexels.com/photos/236973/pexels-photo-236973.jpeg'
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % backgroundImages.length);
-    }, 5000);
+    }, 1700);
     return () => clearInterval(interval);
   }, []);
 
