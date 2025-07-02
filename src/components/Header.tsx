@@ -6,7 +6,6 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const dropdownTimeout = useRef<NodeJS.Timeout | null>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -17,38 +16,38 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setIsMenuOpen(false);
     setActiveDropdown(null);
   }, [location]);
 
- const navigation = [
-  { name: 'Home', href: '/' },
-  { 
-    name: 'About', 
-    href: '/about',
-    dropdown: [
-      { name: 'Company Overview', href: '/about' },
-      { name: 'Global Presence', href: '/global-presence' },
-      { name: 'Leadership', href: '/about#leadership' }
-    ]
-  },
-  { 
-    name: 'Products', 
-    href: '/products',
-    dropdown: [
-      { name: 'Water Proofing', href: '/products#water-proofing' },
-      { name: 'Agriculture GEOsystem', href: '/products#agriculture-geosystem' },
-      { name: 'Infrastructure & Construction', href: '/products#infrastructure-construction' }
-    ]
-  },
-  { name: 'Applications', href: '/applications' },
-  { name: 'Case Studies', href: '/case-studies' },
-  { name: 'Downloads', href: '/downloads' },
-  { name: 'Contact', href: '/contact' },
-];
-
+  const navigation = [
+    { name: 'Home', href: '/' },
+    { 
+      name: 'About', 
+      href: '/about',
+      dropdown: [
+        { name: 'Company Overview', href: '/about' },
+        { name: 'Global Presence', href: '/global-presence' },
+        { name: 'Leadership', href: '/about#leadership' }
+      ]
+    },
+    { 
+      name: 'Products', 
+      href: '/products',
+      dropdown: [
+        { name: 'Rubber Expansion Joints', href: '/products#expansion-joints' },
+        { name: 'PVC Waterstops', href: '/products#waterstops' },
+        { name: 'Geo-Membranes', href: '/products#geo-membranes' },
+        { name: 'Bearing Pads', href: '/products#bearing-pads' },
+        { name: 'Drainage Spouts', href: '/products#drainage-spouts' }
+      ]
+    },
+    { name: 'Applications', href: '/applications' },
+    { name: 'Case Studies', href: '/case-studies' },
+    { name: 'Downloads', href: '/downloads' },
+    { name: 'Contact', href: '/contact' },
+  ];
 
   return (
     <>
@@ -73,20 +72,23 @@ const Header = () => {
 
       {/* Main Header */}
       <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white shadow-lg border-b border-slate-200' 
-          : 'bg-white/95 backdrop-blur-md'
+        isScrolled ? 'bg-white shadow-lg border-b border-slate-200' : 'bg-white/95 backdrop-blur-md'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
             <Link to="/" className="flex items-center group">
-              <img
-                src="https://www.marutirubber.com/assets/img/white-logo.png"
-                alt="Maruti Techno Rubber Logo"
-                className=" mr-4"
-                style={{  borderRadius: '0.75rem', padding: '0.5rem' }}
-              />
+              <div className="bg-gradient-to-br from-slate-700 to-slate-900 p-3 rounded-xl mr-4 group-hover:scale-105 transition-transform duration-200">
+                <Globe className="h-8 w-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-slate-900">
+                  Maruti Techno Rubber
+                </h1>
+                <p className="text-sm text-slate-600">
+                  Global Infrastructure Solutions
+                </p>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -114,7 +116,7 @@ const Header = () => {
                     {item.name}
                     {item.dropdown && <ChevronDown className="ml-1 h-4 w-4" />}
                   </Link>
-                  
+
                   {/* Dropdown Menu */}
                   {item.dropdown && activeDropdown === item.name && (
                     <div
@@ -141,8 +143,7 @@ const Header = () => {
                 </div>
               ))}
               
-              {/* Get Quote Button - Desktop */}
-              <div className="pl-8 border-l border-slate-300 flex-shrink-0 flex items-center">
+              <div className="ml-8 pl-8 border-l border-slate-300">
                 <Link
                   to="/contact"
                   className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap"
@@ -152,7 +153,7 @@ const Header = () => {
               </div>
             </nav>
 
-            {/* Mobile menu button */}
+            {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="lg:hidden p-2 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200"
