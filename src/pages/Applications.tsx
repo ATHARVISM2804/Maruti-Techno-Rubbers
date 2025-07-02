@@ -33,7 +33,7 @@ const Applications = () => {
       icon: Bridge,
       color: 'from-blue-500 to-blue-700',
       image: 'https://images.pexels.com/photos/162539/architecture-building-bridges-landmark-162539.jpeg',
-      description: 'Critical components ensuring bridge safety, longevity, and structural integrity',
+      description: 'Maruti products are used in Infrastructure projects involving landscaping, soil retention, access roads result in significant savings, improved performance on both short term and long-term basis. Maruti products have made it possible to construct soil retention, landscaping, access roads in seemingly difficult locations.',
       products: ['Bridge Bearing Pads', 'Expansion Joints', 'Drainage Spouts', 'Seismic Isolators'],
       features: [
         'High load capacity up to 5000 kN',
@@ -69,11 +69,11 @@ const Applications = () => {
     },
     {
       id: 'transportation',
-      name: 'Transportation & Railways',
+      name: 'Roadways & Highways',
       icon: Road,
       color: 'from-amber-500 to-orange-600',
       image: 'https://images.pexels.com/photos/378570/pexels-photo-378570.jpeg',
-      description: 'Infrastructure solutions for durable road, highway, and railway construction',
+      description: 'From major highways to haul roads, our geogrid technology is a proven solution to ground stabilization Problems, increasing pavement life, repair, and rehabilitation with highway improvements, helping you to control construction costs and build-in a better performance life to your roads.',
       products: ['Geo-Membranes', 'Expansion Joints', 'Drainage Systems', 'Track Pads'],
       features: [
         'Heavy traffic load resistance',
@@ -105,6 +105,126 @@ const Applications = () => {
         { name: 'Gotthard Base Tunnel', location: 'Switzerland', year: '2023' },
         { name: 'Crossrail Elizabeth Line', location: 'London, UK', year: '2022' },
         { name: 'Sydney Metro Tunnels', location: 'Sydney, Australia', year: '2024' }
+      ]
+    },
+    {
+      id: 'water',
+      name: 'Water Resource & Irrigations',
+      icon: Bridge,
+      color: 'from-blue-500 to-sky-700',
+      image: 'https://images.pexels.com/photos/235621/pexels-photo-235621.jpeg',
+      description: 'Our products are used in water resource and flood control projects involving dams, rivers, streams, coastal protection results in significant savings, improved performance on both short term and long-term basis. Our products have made it possible to construct dams, flood protection works in seemingly difficult locations.',
+      products: ['Dam Liners', 'Flood Barriers', 'Irrigation Pipes', 'Channel Liners'],
+      features: [
+        'Puncture and tear resistance',
+        'UV and chemical stability',
+        'Flexible and easy to install',
+        'Long-lasting durability'
+      ],
+      projects: [
+        { name: 'Three Gorges Dam', location: 'Hubei, China', year: '2023' },
+        { name: 'Hoover Dam Rehabilitation', location: 'Nevada, USA', year: '2022' },
+        { name: 'Aswan High Dam', location: 'Aswan, Egypt', year: '2024' }
+      ]
+    },
+    {
+      id: 'ports',
+      name: 'Ports & Marine',
+      icon: Tunnel,
+      color: 'from-indigo-500 to-blue-700',
+      image: 'https://images.pexels.com/photos/296282/pexels-photo-296282.jpeg',
+      description: 'Maruti products are used in ports and marine structures projects involving land reclamation, sea walls, jetties, container yard results in significant savings, improved performance on both short term and long-term basis. Maruti products have made it possible to construct jetties, breakwaters, land reclamation, sea walls in seemingly difficult locations.',
+      products: ['Marine Fenders', 'Dredging Equipment', 'Buoys and Beacons', 'Piling and Foundation'],
+      features: [
+        'Corrosion and biofouling resistance',
+        'High energy absorption capacity',
+        'Modular and customizable designs',
+        'Easy maintenance and repair'
+      ],
+      projects: [
+        { name: 'Port of Rotterdam Expansion', location: 'Rotterdam, Netherlands', year: '2023' },
+        { name: 'Hong Kong-Zhuhai-Macao Bridge', location: 'China', year: '2022' },
+        { name: 'Sydney Harbour Tunnel', location: 'Sydney, Australia', year: '2024' }
+      ]
+    },
+    {
+      id: 'mining',
+      name: 'Mining',
+      icon: Award,
+      color: 'from-red-500 to-rose-700',
+      image: 'https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg',
+      description: 'Haul roads and trucks are the lifelines of mining. When a haul truck stops moving, a mine stops making money. TerrainCell geocells the payload rolling with soil stabilization and reinforced haul road bases. Systems and products must be safe, practical and in compliance with stringent requirements.',
+      products: ['Geocells', 'Geogrids', 'Erosion Control Blankets', 'Drainage Solutions'],
+      features: [
+        'Enhanced load distribution',
+        'Prevention of soil erosion',
+        'Improved drainage and filtration',
+        'Durable and weather-resistant'
+      ],
+      projects: [
+        { name: 'Super Pit Gold Mine', location: 'Kalgoorlie, Australia', year: '2023' },
+        { name: 'Grasberg Mine', location: 'Papua, Indonesia', year: '2022' },
+        { name: 'Carajás Mine', location: 'Pará, Brazil', year: '2024' }
+      ]
+    },
+    {
+      id: 'waste',
+      name: 'Landfill & Waste Management',
+      icon: MapPin,
+      color: 'from-green-500 to-lime-700',
+      image: 'https://images.pexels.com/photos/1372676/pexels-photo-1372676.jpeg',
+      description: 'Maruti products are used in Waste management and landfills projects involving landfills, wastewater lagoons, and ponds, dewatering of sludges results in significant savings, improved performance on both short term and long-term basis. Maruti products have made it possible to construct landfills, wastewater lagoons, dewatering of sludges in seemingly difficult locations.',
+      products: ['Liners and Covers', 'Leachate Management', 'Gas Collection Systems', 'Dewatering Bags'],
+      features: [
+        'High puncture and tear strength',
+        'Excellent chemical resistance',
+        'Flexible and easy to install',
+        'Long-term performance reliability'
+      ],
+      projects: [
+        { name: 'Fresh Kills Landfill Closure', location: 'New York, USA', year: '2023' },
+        { name: 'Laogang Landfill Gas Recovery', location: 'Shanghai, China', year: '2022' },
+        { name: 'Santiago Wastewater Treatment Plant', location: 'Santiago, Chile', year: '2024' }
+      ]
+    },
+    {
+      id: 'railway',
+      name: 'Railway Sector',
+      icon: Tunnel,
+      color: 'from-amber-500 to-orange-600',
+      image: 'https://images.pexels.com/photos/163526/tracks-railroad-railway-transport-163526.jpeg',
+      description: 'Railway construction can involve many challenges - from track support over weak subgrade conditions to bridge abutments and sediment control. As experts in mechanically stabilized earth (MSE) solutions. Geogrids, in combination with aggregate, are used to stabilize sub-ballast and ballast layers, decreasing required roadbed thickness while improving track performance',
+      products: ['Geogrids', 'Track Bed Stabilization', 'Ballast Water Management', 'Sediment Control'],
+      features: [
+        'Improved track stability and alignment',
+        'Reduced maintenance costs',
+        'Enhanced drainage and erosion control',
+        'Durable and resistant to deformation'
+      ],
+      projects: [
+        { name: 'California High-Speed Rail', location: 'California, USA', year: '2023' },
+        { name: 'Crossrail Project', location: 'London, UK', year: '2022' },
+        { name: 'Shinkansen (Bullet Train)', location: 'Japan', year: '2024' }
+      ]
+    },
+    {
+      id: 'power',
+      name: 'Power Sector',
+      icon: Calendar,
+      color: 'from-purple-500 to-purple-700',
+      image: 'https://images.pexels.com/photos/243138/pexels-photo-243138.jpeg',
+      description: 'Maruti products are used in power projects involving Haul roads, heavily loaded floors, water storage ponds result in significant savings, improved performance on both short term and long-term basis. Maruti products have made it possible to construct access roads and working platform, heavily loaded floors, ash ponds in seemingly difficult locations.',
+      products: ['Heavy Duty Geogrids', 'Access Road Solutions', 'Working Platform Systems', 'Ash Pond Liners'],
+      features: [
+        'High tensile strength and durability',
+        'Excellent resistance to deformation',
+        'Effective in load distribution',
+        'Long-term performance in harsh conditions'
+      ],
+      projects: [
+        { name: 'Kashiwazaki-Kariwa Nuclear Power Plant', location: 'Niigata, Japan', year: '2023' },
+        { name: 'Tianwan Nuclear Power Plant', location: 'Jiangsu, China', year: '2022' },
+        { name: 'Palo Verde Nuclear Generating Station', location: 'Arizona, USA', year: '2024' }
       ]
     }
   ];
