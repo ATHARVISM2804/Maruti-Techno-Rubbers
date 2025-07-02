@@ -17,8 +17,13 @@ const Applications = () => {
       { threshold: 0.1 }
     );
 
-    document.querySelectorAll('[id]').forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    // This query selector is what finds the elements to observe for animations
+    const elements = document.querySelectorAll('[id]');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
   }, []);
 
   const applications = [
@@ -109,7 +114,7 @@ const Applications = () => {
   return (
     <div className="pt-20">
       {/* Hero Section */}
-      <section className="relative py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden">
+      <section id="hero" className="relative py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img
             src="https://images.pexels.com/photos/236973/pexels-photo-236973.jpeg"
@@ -118,7 +123,7 @@ const Applications = () => {
           />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center animate-fade-in-up">
+          <div className={`text-center ${isVisible.hero ? 'animate-fade-in-up' : 'opacity-0'}`}>
             <h1 className="text-6xl font-bold mb-8">
               Diverse{' '}
               <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
@@ -126,51 +131,55 @@ const Applications = () => {
               </span>
             </h1>
             <p className="text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
-              Comprehensive product solutions tailored for diverse infrastructure applications 
+              Comprehensive product solutions tailored for diverse infrastructure applications
               across the globe's most challenging and prestigious projects
             </p>
           </div>
         </div>
       </section>
 
-      {/* Application Categories */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {applications.map((app, index) => (
-              <button
-                key={app.id}
-                onClick={() => setSelectedApplication(app.id)}
-                className={`group p-8 rounded-3xl transition-all duration-500 hover-lift ${
-                  selectedApplication === app.id
-                    ? `bg-gradient-to-br ${app.color} text-white shadow-2xl scale-105`
-                    : 'bg-slate-50 text-slate-700 hover:bg-slate-100'
-                } ${isVisible.applications ? `animate-fade-in-up animation-delay-${index * 200}` : 'opacity-0'}`}
-              >
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 transition-all duration-300 ${
-                  selectedApplication === app.id
-                    ? 'bg-white/20 backdrop-blur-sm'
-                    : `bg-gradient-to-r ${app.color}`
-                }`}>
-                  <app.icon className={`h-8 w-8 ${
-                    selectedApplication === app.id ? 'text-white' : 'text-white'
-                  }`} />
-                </div>
-                <h3 className="text-lg font-bold mb-3">{app.name}</h3>
-                <p className={`text-sm leading-relaxed ${
-                  selectedApplication === app.id ? 'text-white/80' : 'text-slate-600'
-                }`}>
-                  {app.description}
-                </p>
-              </button>
-            ))}
+      {/* Application Categories (Filter Section) */}
+      {/* FIX: Added id="applications" to this section for the animation to work */}
+      <section id="applications" className="py-10 bg-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-wrap justify-center gap-3 mb-8"> {/* Changed to flex wrap for better button layout */}
+      {applications.map((app, index) => (
+        <button
+          key={app.id}
+          onClick={() => setSelectedApplication(app.id)}
+          className={`
+            group flex items-center px-4 py-2 rounded-full transition-all duration-300
+            ${selectedApplication === app.id
+              ? `bg-gradient-to-br ${app.color} text-white shadow-md`
+              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}
+            ${isVisible.applications ? `animate-fade-in-up animation-delay-${index * 100}` : 'opacity-0'}
+          `}
+        >
+          <div className={`
+            inline-flex items-center justify-center w-8 h-8 rounded-full mr-2 transition-all duration-300
+            ${selectedApplication === app.id
+              ? 'bg-white/20 backdrop-blur-sm'
+              : `bg-gradient-to-r ${app.color}`}
+          `}>
+            <app.icon className={`h-4 w-4 ${
+              selectedApplication === app.id ? 'text-white' : 'text-white'
+            }`} />
           </div>
-        </div>
-      </section>
+          <span className="text-sm font-medium">{app.name}</span>
+        </button>
+      ))}
+    </div>
+    {/* You would typically display the filtered content here based on `selectedApplication` */}
+    <div className="mt-8 p-6 bg-slate-50 rounded-lg text-center">
+      <p className="text-slate-600">Content filtered by the selected application will appear here.</p>
+      {/* This is a placeholder. You'll replace this with your actual filtered content */}
+    </div>
+  </div>
+</section>
 
       {/* Active Application Details */}
       {activeApp && (
-        <section id="application-details" className="py-24 bg-slate-50">
+        <section id="application-details" className="py-24 bg-slate-50 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
               {/* Content */}
@@ -207,12 +216,8 @@ const Applications = () => {
                   <ul className="space-y-3">
                     {activeApp.features.map((feature, index) => (
                       <li key={index} className="flex items-center text-slate-700">
-                        <Award className={`h-5 w-5 mr-3 bg-gradient-to-r ${activeApp.color} text-transparent`} style={{
-                          background: `linear-gradient(to right, var(--tw-gradient-stops))`,
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent'
-                        }} />
-                        {feature}
+                        <Award className={`h-5 w-5 mr-3 flex-shrink-0 bg-gradient-to-r ${activeApp.color} text-transparent bg-clip-text`} />
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -267,9 +272,10 @@ const Applications = () => {
       )}
 
       {/* Technical Specifications */}
-      <section className="py-24 bg-white">
+      {/* FIX: Added id="tech-specs" for the animation to work */}
+      <section id="tech-specs" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className={`text-center mb-16 ${isVisible['tech-specs'] ? 'animate-fade-in-up' : 'opacity-0'}`}>
             <h2 className="text-4xl font-bold text-slate-900 mb-6">
               Technical Excellence
             </h2>
@@ -279,28 +285,28 @@ const Applications = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center group">
+            <div className={`text-center group ${isVisible['tech-specs'] ? 'animate-fade-in-up animation-delay-200' : 'opacity-0'}`}>
               <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-6 rounded-2xl w-20 h-20 mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <span className="text-2xl font-bold text-white">±100mm</span>
               </div>
               <h3 className="text-lg font-bold text-slate-900 mb-2">Movement Capacity</h3>
               <p className="text-slate-600">Maximum expansion joint movement range</p>
             </div>
-            <div className="text-center group">
+            <div className={`text-center group ${isVisible['tech-specs'] ? 'animate-fade-in-up animation-delay-300' : 'opacity-0'}`}>
               <div className="bg-gradient-to-r from-emerald-600 to-emerald-800 p-6 rounded-2xl w-20 h-20 mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <span className="text-2xl font-bold text-white">5000kN</span>
               </div>
               <h3 className="text-lg font-bold text-slate-900 mb-2">Load Capacity</h3>
               <p className="text-slate-600">Maximum bearing load capacity</p>
             </div>
-            <div className="text-center group">
+            <div className={`text-center group ${isVisible['tech-specs'] ? 'animate-fade-in-up animation-delay-400' : 'opacity-0'}`}>
               <div className="bg-gradient-to-r from-amber-600 to-orange-600 p-6 rounded-2xl w-20 h-20 mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <span className="text-2xl font-bold text-white">50+</span>
               </div>
               <h3 className="text-lg font-bold text-slate-900 mb-2">Service Life</h3>
               <p className="text-slate-600">Years of reliable performance</p>
             </div>
-            <div className="text-center group">
+            <div className={`text-center group ${isVisible['tech-specs'] ? 'animate-fade-in-up animation-delay-500' : 'opacity-0'}`}>
               <div className="bg-gradient-to-r from-purple-600 to-purple-800 p-6 rounded-2xl w-20 h-20 mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <span className="text-2xl font-bold text-white">-40°C</span>
               </div>
