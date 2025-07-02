@@ -1,216 +1,276 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Shield, FileText } from 'lucide-react';
+import React, { useState } from 'react';
+import { Download, FileText, Shield, Award } from 'lucide-react';
 
 const Products = () => {
-  const location = useLocation();
-  const [activeCategory, setActiveCategory] = useState('water-proofing');
-  const [searchTerm, setSearchTerm] = useState('');
-
-  useEffect(() => {
-    if (location.hash) {
-      const hash = location.hash.replace('#', '');
-      if (
-        ['water-proofing', 'agriculture-geosystem', 'infrastructure-construction'].includes(hash)
-      ) {
-        setActiveCategory(hash);
-      }
-    }
-  }, [location.hash]);
+  const [activeTab, setActiveTab] = useState('expansion-joints');
 
   const productCategories = [
     {
-      id: 'water-proofing',
-      name: 'Water Proofing',
-      description: 'Products for waterproofing concrete and infrastructure.',
-      color: 'from-blue-500 to-blue-700',
+      id: 'expansion-joints',
+      name: 'Rubber Expansion Joints',
+      description: 'High-quality rubber expansion joints for bridges, buildings, and infrastructure',
+      image: 'https://images.pexels.com/photos/162539/architecture-building-bridges-landmark-162539.jpeg',
+      products: [
+        {
+          name: 'Modular Expansion Joint',
+          specs: 'Movement capacity: ±100mm',
+          applications: 'Long span bridges, highways',
+          certifications: ['CE', 'ASTM D4014']
+        },
+        {
+          name: 'Strip Seal Expansion Joint',
+          specs: 'Movement capacity: ±50mm',
+          applications: 'Medium span bridges',
+          certifications: ['IS 12843', 'AASHTO M 251']
+        },
+        {
+          name: 'Compression Seal Joint',
+          specs: 'Movement capacity: ±25mm',
+          applications: 'Small to medium bridges',
+          certifications: ['ASTM D2000', 'IS 15778']
+        }
+      ]
+    },
+    {
+      id: 'pvc-waterstops',
+      name: 'PVC Waterstops',
+      description: 'Durable PVC waterstops for concrete joints and construction waterproofing',
       image: 'https://images.pexels.com/photos/1089459/pexels-photo-1089459.jpeg',
       products: [
         {
-          name: 'FlexiSeal Membrane',
-          code: 'WPF-101',
-          specs: 'Elastic waterproof membrane, 1.5mm thick',
-          applications: 'Basements, Roof Slabs, Tunnels',
-          features: ['Flexible', 'Durable', 'UV Resistant'],
-          certifications: ['IS 2508', 'ASTM D4068'],
-          image: 'https://images.pexels.com/photos/1089459/pexels-photo-1089459.jpeg'
+          name: 'Dumbbell PVC Waterstop',
+          specs: 'Width: 150mm-300mm',
+          applications: 'Construction joints, retaining walls',
+          certifications: ['ASTM D4068', 'IS 2508']
         },
         {
-          name: 'AquaBlock Sheet',
-          code: 'WPF-102',
-          specs: 'Self-adhesive, 2mm thick',
-          applications: 'Retaining Walls, Foundations',
-          features: ['Easy to apply', 'Strong adhesion'],
-          certifications: ['EN 681-1'],
-          image: 'https://images.pexels.com/photos/1089459/pexels-photo-1089459.jpeg'
+          name: 'Centerbulb Waterstop',
+          specs: 'Width: 200mm-250mm',
+          applications: 'Water treatment plants, tunnels',
+          certifications: ['EN 681-1', 'ASTM D4068']
+        },
+        {
+          name: 'Ribbed Waterstop',
+          specs: 'Width: 230mm-320mm',
+          applications: 'Dams, reservoirs, basements',
+          certifications: ['IS 2508', 'ASTM D4068']
         }
       ]
     },
     {
-      id: 'agriculture-geosystem',
-      name: 'Agriculture GEOsystem',
-      description: 'Geo-membranes and solutions for agriculture and water retention.',
-      color: 'from-green-500 to-green-700',
+      id: 'geo-membranes',
+      name: 'Geo-Membranes',
+      description: 'Advanced geo-membrane solutions for environmental and civil engineering',
       image: 'https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg',
       products: [
         {
-          name: 'AgriLiner HDPE',
-          code: 'AG-201',
-          specs: 'HDPE 1mm, UV Resistant',
-          applications: 'Ponds, Canals, Farm Tanks',
-          features: ['Weatherproof', 'Long life'],
-          certifications: ['IS 15351'],
-          image: 'https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg'
+          name: 'HDPE Geomembrane',
+          specs: 'Thickness: 0.5mm-3.0mm',
+          applications: 'Landfills, ponds, canals',
+          certifications: ['ASTM D6693', 'IS 15351']
         },
         {
-          name: 'GeoNet Drain',
-          code: 'AG-202',
-          specs: '3D structure, lightweight',
-          applications: 'Irrigation fields, Drainage beds',
-          features: ['Flexible install', 'High flow capacity'],
-          certifications: ['GRI GM13'],
-          image: 'https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg'
+          name: 'LDPE Geomembrane',
+          specs: 'Thickness: 0.2mm-1.0mm',
+          applications: 'Agriculture, aquaculture',
+          certifications: ['ASTM D5199', 'IS 15351']
+        },
+        {
+          name: 'Textured Geomembrane',
+          specs: 'Thickness: 1.0mm-2.5mm',
+          applications: 'Steep slopes, mining',
+          certifications: ['ASTM D6693', 'GRI GM13']
         }
       ]
     },
     {
-      id: 'infrastructure-construction',
-      name: 'Infrastructure & Construction',
-      description: 'Products for bridge, road, and civil structure durability.',
-      color: 'from-amber-500 to-orange-600',
-      image: 'https://images.pexels.com/photos/162539/pexels-photo-162539.jpeg',
+      id: 'bearing-pads',
+      name: 'Bearing Pads',
+      description: 'High-performance bearing pads for structural support and load distribution',
+      image: 'https://images.pexels.com/photos/207252/pexels-photo-207252.jpeg',
       products: [
         {
-          name: 'Bridge Seal Expansion Joint',
-          code: 'IC-301',
-          specs: '±50mm movement, Load 40 tons/m²',
-          applications: 'Bridges, Flyovers',
-          features: ['High durability', 'Easy installation'],
-          certifications: ['AASHTO M251'],
-          image: 'https://images.pexels.com/photos/162539/pexels-photo-162539.jpeg'
+          name: 'Laminated Rubber Bearing',
+          specs: 'Load capacity: 500-5000 kN',
+          applications: 'Bridge bearings, seismic isolation',
+          certifications: ['IS 15129', 'AASHTO M251']
         },
         {
-          name: 'Heavy Duty Bearing Pad',
-          code: 'IC-302',
-          specs: 'Load: 5000 kN',
-          applications: 'Bridge supports, Industrial slabs',
-          features: ['Seismic isolation', 'Multi-directional flexibility'],
-          certifications: ['IS 15129'],
-          image: 'https://images.pexels.com/photos/162539/pexels-photo-162539.jpeg'
+          name: 'Plain Rubber Pad',
+          specs: 'Thickness: 5mm-50mm',
+          applications: 'Precast structures, machines',
+          certifications: ['IS 3400', 'ASTM D2000']
+        },
+        {
+          name: 'PTFE Sliding Bearing',
+          specs: 'Coefficient of friction: 0.03-0.08',
+          applications: 'Long span bridges, buildings',
+          certifications: ['EN 1337-2', 'AASHTO M251']
+        }
+      ]
+    },
+    {
+      id: 'drainage-spouts',
+      name: 'Bridge Drainage Spouts',
+      description: 'Efficient drainage solutions for bridges and elevated structures',
+      image: 'https://images.pexels.com/photos/1112048/pexels-photo-1112048.jpeg',
+      products: [
+        {
+          name: 'Cast Iron Drainage Spout',
+          specs: 'Diameter: 100mm-300mm',
+          applications: 'Highway bridges, flyovers',
+          certifications: ['IS 210', 'ASTM A48']
+        },
+        {
+          name: 'PVC Drainage Spout',
+          specs: 'Diameter: 75mm-200mm',
+          applications: 'Pedestrian bridges, underpasses',
+          certifications: ['IS 4985', 'ASTM D1785']
+        },
+        {
+          name: 'Stainless Steel Spout',
+          specs: 'Diameter: 100mm-250mm',
+          applications: 'Marine structures, coastal bridges',
+          certifications: ['ASTM A276', 'IS 4401']
         }
       ]
     }
   ];
 
-  const activeProducts = productCategories.find(cat => cat.id === activeCategory);
-  const filteredProducts = activeProducts?.products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.applications.toLowerCase().includes(searchTerm.toLowerCase())
-  ) || [];
+  const activeCategory = productCategories.find(cat => cat.id === activeTab);
 
   return (
-    <div className="pt-20">
-      <section className="relative py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <img
-            src={activeProducts?.image || ''}
-            alt="Products Hero"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Explore <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">{activeProducts?.name}</span>
-          </h1>
-          <p className="text-lg text-slate-300 max-w-2xl mx-auto">
-            {activeProducts?.description}
+    <section id="products" className="py-20 bg-[#f5f5f5]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-[#004d40] mb-4">
+            Our Products
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Comprehensive range of high-quality rubber, PVC, and geo-earth products for infrastructure needs
           </p>
         </div>
-      </section>
 
-      <section className="bg-white py-6 sticky top-20 z-50 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto flex gap-4 px-4">
-          {productCategories.map(category => (
-            <button
-              key={category.id}
-              onClick={() => setActiveCategory(category.id)}
-              className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${
-                activeCategory === category.id
-                  ? `bg-gradient-to-r ${category.color} text-white`
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-              }`}
-            >
-              {category.name}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <section className="py-10">
-        <div className="max-w-7xl mx-auto px-4">
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full max-w-md px-4 py-2 border border-slate-300 rounded-lg"
-          />
-
-          <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product, idx) => (
-              <div key={idx} className="rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
-                <div className="relative h-52 bg-gradient-to-tr from-blue-300 to-blue-500">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="absolute inset-0 w-full h-full object-cover opacity-80"
-                  />
-                  <div className="absolute top-4 right-4 bg-white text-sm font-semibold text-slate-700 px-3 py-1 rounded-full">
-                    {product.code}
-                  </div>
-                </div>
-                <div className="p-5">
-                  <h3 className="text-xl font-bold text-slate-800 mb-2">{product.name}</h3>
-
-                  <p className="text-sm text-slate-600 font-semibold mb-1">Specifications:</p>
-                  <p className="text-sm text-slate-700 mb-3">{product.specs}</p>
-
-                  <p className="text-sm text-slate-600 font-semibold mb-1">Applications:</p>
-                  <p className="text-sm text-slate-700 mb-3">{product.applications}</p>
-
-                  <p className="text-sm text-slate-600 font-semibold mb-1">Key Features:</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {product.features.map((f, i) => (
-                      <span key={i} className="bg-slate-100 px-2 py-1 rounded-full text-xs text-slate-700">{f}</span>
-                    ))}
-                  </div>
-
-                  <p className="text-sm text-slate-600 font-semibold mb-1">Certifications:</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {product.certifications.map((c, i) => (
-                      <span key={i} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs flex items-center">
-                        <Shield className="h-3 w-3 mr-1" /> {c}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex gap-2">
-                    <button className="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold px-4 py-2 rounded-xl flex items-center gap-1">
-                      <FileText className="h-4 w-4" /> Spec Sheet
-                    </button>
-                    <button className="border border-slate-300 text-slate-700 px-4 py-2 rounded-xl font-medium">Quote</button>
-                  </div>
-                </div>
-              </div>
+        {/* Product Category Tabs */}
+        <div className="mb-12">
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            {productCategories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setActiveTab(category.id)}
+                className={`px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
+                  activeTab === category.id
+                    ? 'bg-[#004d40] text-white'
+                    : 'bg-white text-[#004d40] hover:bg-[#e0f2f1]'
+                }`}
+              >
+                {category.name}
+              </button>
             ))}
-
-            {filteredProducts.length === 0 && (
-              <p className="col-span-full text-center text-slate-500">No products found</p>
-            )}
           </div>
         </div>
-      </section>
-    </div>
+
+        {/* Active Category Content */}
+        {activeCategory && (
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+              {/* Category Image and Description */}
+              <div>
+                <img
+                  src={activeCategory.image}
+                  alt={activeCategory.name}
+                  className="w-full h-64 object-cover rounded-lg mb-6"
+                />
+                <h3 className="text-2xl font-bold text-[#004d40] mb-4">
+                  {activeCategory.name}
+                </h3>
+                <p className="text-gray-700 mb-6 leading-relaxed">
+                  {activeCategory.description}
+                </p>
+                <button className="bg-[#ffc107] text-[#004d40] px-6 py-3 rounded-lg font-semibold hover:bg-[#ffb300] transition-colors duration-200 flex items-center">
+                  <Download className="mr-2 h-5 w-5" />
+                  Download Brochure
+                </button>
+              </div>
+
+              {/* Products List */}
+              <div className="space-y-6">
+                {activeCategory.products.map((product, index) => (
+                  <div key={index} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                    <h4 className="text-xl font-semibold text-[#004d40] mb-3">
+                      {product.name}
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                      <div>
+                        <span className="text-sm font-semibold text-[#00796b]">Specifications:</span>
+                        <p className="text-gray-700">{product.specs}</p>
+                      </div>
+                      <div>
+                        <span className="text-sm font-semibold text-[#00796b]">Applications:</span>
+                        <p className="text-gray-700">{product.applications}</p>
+                      </div>
+                    </div>
+                    
+                    {/* Certifications */}
+                    <div className="mb-4">
+                      <span className="text-sm font-semibold text-[#00796b]">Certifications:</span>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {product.certifications.map((cert, certIndex) => (
+                          <span
+                            key={certIndex}
+                            className="bg-[#e0f2f1] text-[#004d40] px-3 py-1 rounded-full text-sm flex items-center"
+                          >
+                            <Shield className="mr-1 h-3 w-3" />
+                            {cert}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex gap-3">
+                      <button className="bg-[#004d40] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#00695c] transition-colors duration-200 flex items-center">
+                        <FileText className="mr-2 h-4 w-4" />
+                        Spec Sheet
+                      </button>
+                      <button className="border border-[#004d40] text-[#004d40] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#004d40] hover:text-white transition-colors duration-200">
+                        Get Quote
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Quality Assurance */}
+        <div className="mt-16 bg-white rounded-xl shadow-lg p-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="bg-[#004d40] p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <Award className="h-8 w-8 text-white" />
+              </div>
+              <h4 className="text-lg font-semibold text-[#004d40] mb-2">Quality Certified</h4>
+              <p className="text-gray-600">ISO 9001:2015 certified manufacturing processes</p>
+            </div>
+            <div>
+              <div className="bg-[#004d40] p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <Shield className="h-8 w-8 text-white" />
+              </div>
+              <h4 className="text-lg font-semibold text-[#004d40] mb-2">Tested & Proven</h4>
+              <p className="text-gray-600">Rigorous testing to international standards</p>
+            </div>
+            <div>
+              <div className="bg-[#004d40] p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <FileText className="h-8 w-8 text-white" />
+              </div>
+              <h4 className="text-lg font-semibold text-[#004d40] mb-2">Documented</h4>
+              <p className="text-gray-600">Complete documentation and certifications</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
