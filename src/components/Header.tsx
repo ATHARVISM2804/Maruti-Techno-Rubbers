@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Globe, ChevronDown } from 'lucide-react';
 
@@ -6,6 +6,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const dropdownTimeout = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -16,7 +17,6 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setIsMenuOpen(false);
     setActiveDropdown(null);
@@ -37,11 +37,9 @@ const Header = () => {
       name: 'Products', 
       href: '/products',
       dropdown: [
-        { name: 'Rubber Expansion Joints', href: '/products#expansion-joints' },
-        { name: 'PVC Waterstops', href: '/products#waterstops' },
-        { name: 'Geo-Membranes', href: '/products#geo-membranes' },
-        { name: 'Bearing Pads', href: '/products#bearing-pads' },
-        { name: 'Drainage Spouts', href: '/products#drainage-spouts' }
+        { name: 'Water Proofing', href: '/products#water-proofing' },
+        { name: 'Agriculture GEOsystem', href: '/products#agriculture-geosystem' },
+        { name: 'Infrastructure & Construction', href: '/products#infrastructure-construction' }
       ]
     },
     { name: 'Applications', href: '/applications' },
@@ -73,25 +71,18 @@ const Header = () => {
 
       {/* Main Header */}
       <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white shadow-lg border-b border-slate-200' 
-          : 'bg-white/95 backdrop-blur-md'
+        isScrolled ? 'bg-white shadow-lg border-b border-slate-200' : 'bg-white/95 backdrop-blur-md'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
             <Link to="/" className="flex items-center group">
-              <div className="bg-gradient-to-br from-slate-700 to-slate-900 p-3 rounded-xl mr-4 group-hover:scale-105 transition-transform duration-200">
-                <Globe className="h-8 w-8 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-slate-900">
-                  Maruti Techno Rubber
-                </h1>
-                <p className="text-sm text-slate-600">
-                  Global Infrastructure Solutions
-                </p>
-              </div>
+              <img
+                src="https://www.marutirubber.com/assets/img/white-logo.png"
+                alt="Maruti Techno Rubber Logo"
+                className="mr-4"
+                style={{ borderRadius: '0.75rem', padding: '0.5rem' }}
+              />
             </Link>
 
             {/* Desktop Navigation */}
@@ -100,8 +91,13 @@ const Header = () => {
                 <div
                   key={item.name}
                   className="relative"
-                  onMouseEnter={() => setActiveDropdown(item.dropdown ? item.name : null)}
-                  onMouseLeave={() => setActiveDropdown(null)}
+                  onMouseEnter={() => {
+                    if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current);
+                    setActiveDropdown(item.dropdown ? item.name : null);
+                  }}
+                  onMouseLeave={() => {
+                    dropdownTimeout.current = setTimeout(() => setActiveDropdown(null), 150);
+                  }}
                 >
                   <Link
                     to={item.href}
@@ -114,10 +110,19 @@ const Header = () => {
                     {item.name}
                     {item.dropdown && <ChevronDown className="ml-1 h-4 w-4" />}
                   </Link>
-                  
+
                   {/* Dropdown Menu */}
                   {item.dropdown && activeDropdown === item.name && (
-                    <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50">
+                    <div
+                      className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50"
+                      onMouseEnter={() => {
+                        if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current);
+                        setActiveDropdown(item.name);
+                      }}
+                      onMouseLeave={() => {
+                        dropdownTimeout.current = setTimeout(() => setActiveDropdown(null), 150);
+                      }}
+                    >
                       {item.dropdown.map((dropdownItem) => (
                         <Link
                           key={dropdownItem.name}
@@ -131,18 +136,19 @@ const Header = () => {
                   )}
                 </div>
               ))}
-              
-              <div className="ml-8 pl-8 border-l border-slate-300">
+
+              {/* Get Quote Button */}
+              <div className="pl-8 border-l border-slate-300 flex-shrink-0 flex items-center">
                 <Link
                   to="/contact"
-                  className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-md hover:shadow-lg"
+                  className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap"
                 >
                   Get Quote
                 </Link>
               </div>
             </nav>
 
-            {/* Mobile menu button */}
+            {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="lg:hidden p-2 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200"
