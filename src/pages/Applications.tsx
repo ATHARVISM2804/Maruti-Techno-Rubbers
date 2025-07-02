@@ -32,7 +32,7 @@ const Applications = () => {
       name: 'Infrastructure & Bridges',
       icon: Bridge,
       color: 'from-blue-500 to-blue-700',
-      image: 'https://images.pexels.com/photos/162539/architecture-building-bridges-landmark-162539.jpeg',
+      image: 'https://images.pexels.com/photos/1141853/pexels-photo-1141853.jpeg',
       description: 'Maruti products are used in Infrastructure projects involving landscaping, soil retention, access roads result in significant savings, improved performance on both short term and long-term basis. Maruti products have made it possible to construct soil retention, landscaping, access roads in seemingly difficult locations.',
       products: ['Bridge Bearing Pads', 'Expansion Joints', 'Drainage Spouts', 'Seismic Isolators'],
       features: [
