@@ -4,6 +4,7 @@ import { ArrowRight, Play, Award, Users, Globe2, CheckCircle, TrendingUp, Shield
 import Certifications from '../components/Certifications';
 import Clients from '../components/Clients';
 import Gallery from '../components/Gallery';
+import VideoSection from '../components/EmbeddedVideo';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -276,7 +277,7 @@ const Home = () => {
       
       <Gallery />
 
-
+      <VideoSection />
 
       {/* Global Presence Teaser */}
       <section id="global" className="py-20 bg-slate-900 text-white relative overflow-hidden">
