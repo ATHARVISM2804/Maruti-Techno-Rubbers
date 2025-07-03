@@ -37,15 +37,14 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* Company Info */}
             <div className="lg:col-span-1">
-              <Link to="/" className="flex items-center mb-8">
-                <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-3 rounded-xl mr-4">
-                  <Globe className="h-8 w-8 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold">Maruti Techno Rubber</h3>
-                  <p className="text-sm text-slate-400">Global Infrastructure Solutions</p>
-                </div>
-              </Link>
+              <Link to="/" className="flex items-center group">
+                            <img
+                              src="https://www.marutirubber.com/assets/img/white-logo.png"
+                              alt="Maruti Techno Rubber Logo"
+                              className=" mr-4 mb-10"
+                              style={{  borderRadius: '0.75rem', padding: '0.5rem' }}
+                            />
+                          </Link>
               
               <p className="text-slate-300 mb-8 leading-relaxed">
                 Three decades of excellence in manufacturing premium rubber, PVC, and geo-earth 
