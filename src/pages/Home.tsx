@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play, Award, Users, Globe2, CheckCircle, TrendingUp, Shield, Zap, Target, Building2, Factory, Truck, MapPin } from 'lucide-react';
+import Certifications from '../components/Certifications';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -206,6 +207,8 @@ const Home = () => {
         </div>
       </section>
 
+    
+
       {/* Applications Preview */}
       <section id="applications" className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -258,6 +261,10 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+        {/* Certification Sections  */}
+
+      <Certifications />
 
       {/* Global Presence Teaser */}
       <section id="global" className="py-20 bg-slate-900 text-white relative overflow-hidden">
