@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play, Award, Users, Globe2, CheckCircle, TrendingUp, Shield, Zap, Target, Building2, Factory, Truck, MapPin } from 'lucide-react';
 import Certifications from '../components/Certifications';
+import Clients from '../components/Clients';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -265,6 +266,12 @@ const Home = () => {
         {/* Certification Sections  */}
 
       <Certifications />
+
+      {/* Clients */}
+
+      <Clients />
+    
+
 
       {/* Global Presence Teaser */}
       <section id="global" className="py-20 bg-slate-900 text-white relative overflow-hidden">
