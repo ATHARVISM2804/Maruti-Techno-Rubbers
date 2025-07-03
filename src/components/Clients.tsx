@@ -36,7 +36,7 @@ const Clients = () => {
   }, []);
 
   return (
-    <section className="py-20 bg-[#F8FAFC] overflow-hidden" ref={marqueeRef}>
+    <section className="py-20  overflow-hidden" ref={marqueeRef}>
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-slate-900 mb-10 text-center">Our Clients</h2>
         <div className="relative w-full">

@@ -24,7 +24,7 @@ const Certifications = () => {
   const [modal, setModal] = useState<{ src: string; alt: string } | null>(null);
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-[#F8FAFC]">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-slate-900 mb-10 text-center">Our Certifications</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 justify-items-center">
