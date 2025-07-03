@@ -10,12 +10,14 @@ import CaseStudies from './pages/CaseStudies';
 import Downloads from './pages/Downloads';
 import Contact from './pages/Contact';
 import GlobalPresence from './pages/GlobalPresence';
+import Preloader from './components/Preloader';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-white">
         <Header />
+        <Preloader />
         <main>
           <Routes>
             <Route path="/" element={<Home />} />

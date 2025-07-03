@@ -21,6 +21,7 @@ const Header = () => {
   useEffect(() => {
     setIsMenuOpen(false);
     setActiveDropdown(null);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [location]);
 
  const navigation = [
