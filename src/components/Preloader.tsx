@@ -6,31 +6,39 @@ const Preloader: React.FC = () => {
   const preloaderRef = useRef<HTMLDivElement | null>(null);
   const lettersRef = useRef<(HTMLSpanElement | null)[]>([]);
   const [showCircle, setShowCircle] = useState(false);
+  const [showTagline, setShowTagline] = useState(false);
 
   useEffect(() => {
     const tl = gsap.timeline({
       onComplete: () => {
         setShowCircle(true);
+
+        // Show tagline after circle
         setTimeout(() => {
-          if (preloaderRef.current) {
-            gsap.to(preloaderRef.current, {
-              opacity: 0,
-              duration: 0.8,
-              onComplete: () => {
-                if (preloaderRef.current) {
-                  preloaderRef.current.style.display = 'none';
+          setShowTagline(true);
+
+          // Then hide preloader
+          setTimeout(() => {
+            if (preloaderRef.current) {
+              gsap.to(preloaderRef.current, {
+                opacity: 0,
+                duration: 1,
+                ease: 'power2.out',
+                onComplete: () => {
+                  preloaderRef.current!.style.display = 'none';
                 }
-              }
-            });
-          }
-        }, 1800);
+              });
+            }
+          }, 1600);
+        }, 800);
       }
     });
 
+    // Letter flip + fade
     tl.fromTo(
       lettersRef.current,
       {
-        y: 60,
+        y: 80,
         rotateX: -90,
         opacity: 0
       },
@@ -40,7 +48,7 @@ const Preloader: React.FC = () => {
         opacity: 1,
         duration: 1.2,
         ease: 'back.out(1.7)',
-        stagger: 0.1
+        stagger: 0.12
       }
     );
   }, []);
@@ -60,8 +68,13 @@ const Preloader: React.FC = () => {
             </span>
           ))}
         </div>
+
         {showCircle && <div className="glow-circle" />}
-        {showCircle && <p className="tagline">Engineering the Future</p>}
+        {showTagline && (
+          <p className="tagline">
+            <span className="typed-text">Engineering the Future</span>
+          </p>
+        )}
       </div>
     </div>
   );
