@@ -12,10 +12,10 @@ const images = [
     src: "https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg",
     alt: "Manufacturing Facility"
   },
-  {
-    src: "https://images.pexels.com/photos/162539/pexels-photo-162539.jpeg",
-    alt: "Expansion Joint Installation"
-  },
+//   {
+//     src: "https://images.pexels.com/photos/162539/pexels-photo-162539.jpeg",
+//     alt: "Expansion Joint Installation"
+//   },
   {
     src: "https://images.pexels.com/photos/1089459/pexels-photo-1089459.jpeg",
     alt: "PVC Waterstop Application"
@@ -56,7 +56,7 @@ const Gallery = () => {
   }, []);
 
   return (
-    <section className="py-24 bg-[#f5f5f5]" ref={scrollRef}>
+    <section className="py-24 " ref={scrollRef}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-[#004d40] mb-4">Gallery</h2>
