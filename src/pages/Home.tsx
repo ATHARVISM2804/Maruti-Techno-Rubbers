@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Play, Award, Users, Globe2, CheckCircle, TrendingUp, Shield, Zap, Target, Building2, Factory, Truck, MapPin } from 'lucide-react';
 import Certifications from '../components/Certifications';
 import Clients from '../components/Clients';
+import Gallery from '../components/Gallery';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -262,15 +263,19 @@ const Home = () => {
           </div>
         </div>
       </section>
+      {/* Clients */}
+
+      <Clients />
 
         {/* Certification Sections  */}
 
       <Certifications />
 
-      {/* Clients */}
-
-      <Clients />
     
+      {/* Gallery */}
+      
+      <Gallery />
+
 
 
       {/* Global Presence Teaser */}
