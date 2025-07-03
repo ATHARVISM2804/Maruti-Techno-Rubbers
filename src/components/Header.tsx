@@ -57,8 +57,8 @@ const Header = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-6">
-              <span>📧 info@marutitechno.com</span>
-              <span>📞 +91-712-2234567</span>
+              <span>📧  support@marutitechnorubber.com</span>
+              <span>📞 +07 554 332 322  </span>
             </div>
             <div className="flex items-center space-x-4">
               <select className="bg-transparent border border-slate-600 rounded px-2 py-1 text-xs">

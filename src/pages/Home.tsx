@@ -75,7 +75,7 @@ const Home = () => {
     {
       title: 'Infrastructure',
       description: 'Bridges, highways, and major construction projects',
-      image: 'https://images.pexels.com/photos/162539/architecture-building-bridges-landmark-162539.jpeg',
+      image: 'https://images.pexels.com/photos/342008/pexels-photo-342008.jpeg',
       icon: Building2
     },
     {
