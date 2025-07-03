@@ -1,21 +1,27 @@
+// ✅ FINAL Products.jsx with Quote Modal and Select Dropdown
 
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Shield, FileText } from 'lucide-react';
+import DummyPDF from "../Assets/Specsheeet/Dummy Specsheet.pdf";
 
 const Products = () => {
   const location = useLocation();
   const [activeCategory, setActiveCategory] = useState('water-proofing');
   const [searchTerm, setSearchTerm] = useState('');
+  const [showQuoteModal, setShowQuoteModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    contact: '',
+    message: '',
+    selected: '',
+  });
 
   useEffect(() => {
     if (location.hash) {
       const hash = location.hash.replace('#', '');
-      if ([
-        'water-proofing',
-        'agriculture-geosystem',
-        'infrastructure-construction'
-      ].includes(hash)) {
+      if (['water-proofing', 'agriculture-geosystem', 'infrastructure-construction'].includes(hash)) {
         setActiveCategory(hash);
       }
     }
@@ -111,26 +117,40 @@ const Products = () => {
     product.applications.toLowerCase().includes(searchTerm.toLowerCase())
   ) || [];
 
+  const handleQuoteClick = (product) => {
+    setSelectedProduct(product);
+    setFormData((prev) => ({ ...prev, selected: product.name }));
+    setShowQuoteModal(true);
+  };
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form data:", formData);
+    alert("Quote request submitted!");
+    setShowQuoteModal(false);
+  };
+
   return (
     <div className="pt-20">
+      {/* HERO */}
       <section className="relative py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <img
-            src={activeProducts?.image || ''}
-            alt="Products Hero"
-            className="w-full h-full object-cover"
-          />
+          <img src={activeProducts?.image || ''} alt="Products Hero" className="w-full h-full object-cover" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             Explore <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">{activeProducts?.name}</span>
           </h1>
-          <p className="text-lg text-slate-300 max-w-2xl mx-auto">
-            {activeProducts?.description}
-          </p>
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto">{activeProducts?.description}</p>
         </div>
       </section>
 
+      {/* CATEGORY TABS */}
       <section className="bg-white py-6 sticky top-20 z-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto flex gap-4 px-4">
           {productCategories.map(category => (
@@ -149,6 +169,7 @@ const Products = () => {
         </div>
       </section>
 
+      {/* PRODUCT LIST */}
       <section className="py-10">
         <div className="max-w-7xl mx-auto px-4">
           <input
@@ -158,7 +179,6 @@ const Products = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full max-w-md px-4 py-2 border border-slate-300 rounded-lg"
           />
-
           <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProducts.map((product, idx) => (
               <div key={idx} className="rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
@@ -170,20 +190,16 @@ const Products = () => {
                 </div>
                 <div className="p-5">
                   <h3 className="text-xl font-bold text-slate-800 mb-2">{product.name}</h3>
-
                   <p className="text-sm text-slate-600 font-semibold mb-1">Specifications:</p>
                   <p className="text-sm text-slate-700 mb-3">{product.specs}</p>
-
                   <p className="text-sm text-slate-600 font-semibold mb-1">Applications:</p>
                   <p className="text-sm text-slate-700 mb-3">{product.applications}</p>
-
                   <p className="text-sm text-slate-600 font-semibold mb-1">Key Features:</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {product.features.map((f, i) => (
                       <span key={i} className="bg-slate-100 px-2 py-1 rounded-full text-xs text-slate-700">{f}</span>
                     ))}
                   </div>
-
                   <p className="text-sm text-slate-600 font-semibold mb-1">Certifications:</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {product.certifications.map((c, i) => (
@@ -192,23 +208,94 @@ const Products = () => {
                       </span>
                     ))}
                   </div>
-
                   <div className="flex gap-2">
-                    <button className="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold px-4 py-2 rounded-xl flex items-center gap-1">
+                    <a href={DummyPDF} download target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold px-4 py-2 rounded-xl flex items-center gap-1">
                       <FileText className="h-4 w-4" /> Spec Sheet
+                    </a>
+                    <button
+                      onClick={() => handleQuoteClick(product)}
+                      className="border border-slate-300 text-slate-700 px-4 py-2 rounded-xl font-medium hover:bg-slate-100"
+                    >
+                      Quote
                     </button>
-                    <button className="border border-slate-300 text-slate-700 px-4 py-2 rounded-xl font-medium">Quote</button>
                   </div>
                 </div>
               </div>
             ))}
-
             {filteredProducts.length === 0 && (
               <p className="col-span-full text-center text-slate-500">No products found</p>
             )}
           </div>
         </div>
       </section>
+
+      {/* QUOTE MODAL */}
+      {showQuoteModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-lg shadow-xl relative">
+            <button
+              onClick={() => setShowQuoteModal(false)}
+              className="absolute top-2 right-2 text-slate-500 hover:text-slate-800"
+            >
+              ✕
+            </button>
+            <h2 className="text-xl font-bold mb-4">Request a Quote</h2>
+            <form onSubmit={handleFormSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm text-slate-600 mb-1">Select Product</label>
+                <select
+                  name="selected"
+                  value={formData.selected}
+                  onChange={handleFormChange}
+                  className="w-full border px-3 py-2 rounded-lg"
+                >
+                  {activeProducts?.products.map((p, idx) => (
+                    <option key={idx} value={p.name}>{p.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm text-slate-600 mb-1">Your Name</label>
+                <input
+                  name="name"
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={handleFormChange}
+                  className="w-full px-3 py-2 border rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-slate-600 mb-1">Email / Phone</label>
+                <input
+                  name="contact"
+                  type="text"
+                  required
+                  value={formData.contact}
+                  onChange={handleFormChange}
+                  className="w-full px-3 py-2 border rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-slate-600 mb-1">Message / Requirements</label>
+                <textarea
+                  name="message"
+                  rows="3"
+                  value={formData.message}
+                  onChange={handleFormChange}
+                  className="w-full px-3 py-2 border rounded-lg"
+                />
+              </div>
+              <button
+                type="submit"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+              >
+                Send Quote
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
